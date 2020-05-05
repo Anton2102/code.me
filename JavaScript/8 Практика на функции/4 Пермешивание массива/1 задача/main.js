@@ -5,9 +5,7 @@ let arr = [1, 2, 3, 4, 5];
 function range(arr, min,max) {
   let result = [];
   for(let i = min; i <= max; i++){
-    // let z = getRandomInt()
-    let elem = arr.slice(getRandomInt(min,max), 1)[0];
-    result.push(elem);
+    result.push(arr[getRandomInt(min,max)]);
   }
   return result;
 }
