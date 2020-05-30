@@ -7,4 +7,5 @@ let a = document.querySelector('a');
 a.addEventListener('click', function(event){
   event.preventDefault();
   p.innerHTML = Number(input1.value) + Number(input2.value);
-}) 
+})
+ 
