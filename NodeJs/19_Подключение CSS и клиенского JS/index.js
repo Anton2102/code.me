@@ -7,7 +7,8 @@ http.createServer( (request, response) => {
   if (request.url != '/favicon.ico'){
 
     if (request.url.endsWith('.css')) {
-      fs.readFile('style.css', (err, data) => {
+      let cssFile = request.url.slice(1);
+      fs.readFile(cssFile, (err, data) => {
         if (err) throw err;
 
         response.setHeader('Content-Type', 'text/css');
@@ -15,6 +16,27 @@ http.createServer( (request, response) => {
         response.write(data);
         response.end();
       });
+    } else if (request.url.endsWith('.js')) {
+      let jsFile = request.url.slice(1);
+      fs.readFile(jsFile, (err, data) => {
+        if (err) throw err;
+
+        response.setHeader('Content-Type', 'text/javascript');
+        response.statusCode = 200;
+        response.write(data);
+        response.end();
+      });
+    } else if (request.url.endsWith('.jpg')) {
+      let imgFile = request.url.slice(1);
+      fs.readFile(imgFile, (err, data) => {
+        if (err) throw err;
+
+        response.setHeader('Content-Type', 'image/jpg');
+        response.statusCode = 200;
+        response.write(data);
+        response.end();
+      });
+      
     } else {
       getPage(request.url, response);
     }
@@ -39,10 +61,10 @@ function getPage(name, response, statusCode = 200) {
 
           data = data.replace(/\{\{footer\}\}/g, footer);
 
-        response.setHeader('Content-Type', 'text/html');
-        response.statusCode = statusCode;
-        response.write(data);
-        response.end();
+          response.setHeader('Content-Type', 'text/html');
+          response.statusCode = statusCode;
+          response.write(data);
+          response.end();
         });
       });
 
